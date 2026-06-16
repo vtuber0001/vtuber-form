@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>버튜버 정보 등록</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f3fb;
+    --card:#ffffff;
+    --ink:#2c2545;
+    --muted:#928da8;
+    --line:#ece8f6;
+    --primary:#ff5fa2;
+    --primary-deep:#e23d86;
+    --accent:#36cfc6;
+    --accent-soft:#e8faf8;
+    --danger:#f04e6b;
+    --shadow:rgba(96,64,150,.10);
+    --font-display:'Jua',sans-serif;
+    --font-body:'Gowun Dodum',sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- header ---------- */
+  .hero{
+    background:linear-gradient(135deg,#ff86bd 0%,#b27cff 55%,#7cc6ff 100%);
+    color:#fff;
+    padding:46px 20px 70px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;left:0;right:0;bottom:-1px;height:40px;
+    background:var(--bg);
+    border-radius:50% 50% 0 0/100% 100% 0 0;
+  }
+  .hero .eyebrow{
+    font-family:var(--font-body);
+    letter-spacing:.18em;
+    font-size:.72rem;
+    opacity:.92;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-family:var(--font-display);
+    font-size:2rem;
+    margin:.3em 0 .15em;
+    text-shadow:0 2px 14px rgba(120,50,140,.25);
+  }
+  .hero p{margin:0 auto;max-width:30em;font-size:.95rem;opacity:.95}
+
+  /* ---------- layout ---------- */
+  .wrap{max-width:640px;margin:-34px auto 60px;padding:0 18px;position:relative;z-index:2}
+
+  /* ---------- live preview ---------- */
+  .preview{
+    background:var(--card);
+    border-radius:22px;
+    box-shadow:0 14px 40px var(--shadow);
+    padding:18px 20px;
+    display:flex;align-items:center;gap:16px;
+    margin-bottom:22px;
+    border:1px solid var(--line);
+  }
+  .pv-orb{
+    width:58px;height:58px;border-radius:50%;flex:0 0 auto;
+    box-shadow:0 0 0 4px #fff,0 0 0 6px var(--line);
+    position:relative;
+  }
+  .pv-orb .eye{
+    position:absolute;top:50%;left:50%;width:14px;height:14px;border-radius:50%;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 8px rgba(0,0,0,.15) inset;
+  }
+  .pv-meta{min-width:0}
+  .pv-name{font-family:var(--font-display);font-size:1.15rem;line-height:1.2}
+  .pv-name.placeholder{color:var(--muted)}
+  .pv-swatches{display:flex;gap:6px;margin-top:6px}
+  .pv-swatches span{width:18px;height:18px;border-radius:6px;border:1px solid rgba(0,0,0,.06)}
+
+  /* ---------- sections ---------- */
+  section.card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:22px 20px 8px;
+    margin-bottom:18px;
+    box-shadow:0 8px 26px var(--shadow);
+  }
+  .sec-head{
+    font-family:var(--font-display);
+    font-size:1.18rem;
+    display:flex;align-items:center;gap:.5em;
+    margin:0 0 4px;
+  }
+  .sec-desc{color:var(--muted);font-size:.85rem;margin:0 0 16px}
+
+  .field{margin-bottom:18px}
+  .field label{
+    display:block;font-size:.9rem;font-weight:400;margin-bottom:7px;
+  }
+  .req{color:var(--primary);font-weight:700;margin-left:2px}
+  .hint{display:block;color:var(--muted);font-size:.76rem;margin-top:6px}
+
+  input[type=text],input[type=url],input[type=date],select,textarea{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:.95rem;
+    color:var(--ink);
+    background:#fbfaff;
+    border:1.5px solid var(--line);
+    border-radius:13px;
+    padding:12px 14px;
+    transition:border-color .15s,box-shadow .15s,background .15s;
+  }
+  textarea{resize:vertical;min-height:84px}
+  input:focus,select:focus,textarea:focus{
+    outline:none;
+    border-color:var(--primary);
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(255,95,162,.13);
+  }
+  input::placeholder,textarea::placeholder{color:#bdb8ce}
+  select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23928da8' d='M6 8 0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:38px}
+
+  /* color rows */
+  .colorrow{display:flex;align-items:center;gap:10px}
+  .colorrow .swatch{
+    width:42px;height:42px;border-radius:12px;flex:0 0 auto;
+    border:1.5px solid var(--line);background:#fff;transition:background .15s;
+  }
+  .colorrow input.colorcode{flex:1;font-variant-numeric:tabular-nums}
+
+  .err{display:none;color:var(--danger);font-size:.78rem;margin-top:6px}
+  .field.invalid input,.field.invalid select{border-color:var(--danger);box-shadow:0 0 0 4px rgba(240,78,107,.12)}
+  .field.invalid .err{display:block}
+
+  /* submit */
+  .submit{
+    width:100%;border:none;cursor:pointer;
+    font-family:var(--font-display);font-size:1.1rem;color:#fff;
+    background:linear-gradient(135deg,var(--primary),#b27cff);
+    border-radius:16px;padding:16px;margin-top:6px;
+    box-shadow:0 10px 24px rgba(178,124,255,.4);
+    transition:transform .12s,box-shadow .12s,opacity .12s;
+  }
+  .submit:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(178,124,255,.5)}
+  .submit:active{transform:translateY(0)}
+  .submit:disabled{opacity:.7;cursor:wait;transform:none}
+  .footnote{text-align:center;color:var(--muted);font-size:.78rem;margin:14px 0 0}
+
+  .honey{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+
+  /* ---------- layout picker ---------- */
+  .lay-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media (max-width:520px){.lay-grid{grid-template-columns:1fr}}
+  .lay{
+    border:2px solid var(--line);border-radius:16px;padding:10px 10px 12px;cursor:pointer;background:#fbfaff;
+    transition:border-color .15s,box-shadow .15s,transform .12s;text-align:left;
+  }
+  .lay:hover{transform:translateY(-2px)}
+  .lay.sel{border-color:var(--primary);box-shadow:0 0 0 4px rgba(255,95,162,.13);background:#fff}
+  .lay .lname{font-family:var(--font-display);font-size:.95rem;margin:11px 2px 1px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .lay .ldesc{color:var(--muted);font-size:.72rem;line-height:1.4;margin:0 2px}
+  .lay .check{margin-left:auto;width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto}
+  .lay.sel .check{border-color:var(--primary);background:var(--primary) radial-gradient(circle,#fff 32%,transparent 34%)}
+  .lay .zoom{font-family:var(--font-body);font-size:.7rem;color:var(--primary-deep);text-decoration:none;font-weight:400}
+  .lay .zoom:hover{text-decoration:underline}
+
+  /* real page thumbnail (scaled iframe) */
+  .frame{position:relative;width:100%;max-width:260px;margin:0 auto;height:300px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff}
+  .frame iframe{position:absolute;top:0;left:0;width:650px;height:750px;border:0;transform:scale(.4);transform-origin:top left;pointer-events:none}
+  .frame .veil{position:absolute;inset:0;z-index:2}
+
+  /* attach-your-own option */
+  .lay.attach{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-style:dashed;min-height:300px}
+  .lay.attach .big{font-size:2rem;line-height:1;margin-bottom:8px}
+  .attach-panel{display:none;margin-top:16px;padding:14px;border:1.5px dashed var(--primary);border-radius:14px;background:#fff0f5}
+  .attach-panel.show{display:block}
+
+  /* ---------- success ---------- */
+  .done{
+    display:none;text-align:center;background:var(--card);
+    border:1px solid var(--line);border-radius:24px;
+    padding:54px 26px;box-shadow:0 14px 40px var(--shadow);
+  }
+  .done.show{display:block;animation:pop .5s ease}
+  @keyframes pop{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}
+  .done .ribbon{font-size:3.4rem;display:block;animation:float 3s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .done h2{font-family:var(--font-display);font-size:1.5rem;margin:.4em 0 .3em}
+  .done p{color:var(--muted);margin:0 auto;max-width:24em}
+
+  @media (max-width:480px){
+    .hero h1{font-size:1.6rem}
+    .wrap{padding:0 14px}
+    section.card{padding:20px 16px 6px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">VIRTUAL PROFILE</div>
+  <h1>버튜버 정보 등록</h1>
+  <p>프로필 페이지를 만들기 위한 기본 정보를 모아요. <strong>*</strong> 표시는 필수, 나머지는 아는 만큼만 적어주세요.</p>
+</header>
+
+<div class="wrap">
+
+  <!-- live preview -->
+  <div class="preview" aria-hidden="true">
+    <div class="pv-orb" id="pvOrb"><span class="eye" id="pvEye"></span></div>
+    <div class="pv-meta">
+      <div class="pv-name placeholder" id="pvName">활동명을 입력하면 여기 나와요</div>
+      <div class="pv-swatches">
+        <span id="pvMain" title="메인"></span>
+        <span id="pvSub" title="서브"></span>
+        <span id="pvHair" title="머리"></span>
+        <span id="pvEyeSw" title="눈"></span>
+      </div>
+    </div>
+  </div>
+
+  <form id="vform" novalidate>
+    <!-- honeypot -->
+    <div class="honey"><label>이 칸은 비워두세요<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <!-- 기본 정보 -->
+    <section class="card">
+      <h2 class="sec-head">👤 기본 정보</h2>
+      <div class="field" data-required>
+        <label>활동명 / 닉네임<span class="req">*</span></label>
+        <input type="text" name="name" id="f-name" placeholder="예) 별빛하루">
+        <span class="err">필수 항목입니다.</span>
+      </div>
+      <div class="field">
+        <label>읽는 법 / 발음</label>
+        <input type="text" name="reading" placeholder="예) 별비타루 / Starlight Haru">
+      </div>
+      <div class="field">
+        <label>데뷔일</label>
+        <input type="date" name="debut">
+      </div>
+      <div class="field">
+        <label>생일 (MM-DD)</label>
+        <input type="text" name="birthday" placeholder="예) 03-21" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label>소속 / 소속사</label>
+        <input type="text" name="agency" placeholder="개인세 / 소속사명">
+      </div>
+      <div class="field">
+        <label>성별 설정</label>
+        <select name="gender">
+          <option value="">— 선택 —</option>
+          <option>여</option><option>남</option><option>불명</option><option>기타</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>한줄 자기소개</label>
+        <input type="text" name="bio" placeholder="나를 표현하는 한 문장">
+      </div>
+    </section>
+
+    <!-- 비주얼 -->
+    <section class="card">
+      <h2 class="sec-head">🎨 비주얼</h2>
+      <div class="field" data-required>
+        <label>메인 컬러<span class="req">*</span></label>
+        <div class="colorrow"><span class="swatch" id="sw-main"></span><input type="text" class="colorcode" name="main_color" id="f-main" placeholder="#FF8FAB" value="#FF8FAB"></div>
+        <span class="hint">HEX 코드로 입력해 주세요 (예: #FF8FAB)</span>
+        <span class="err">필수 항목입니다.</span>
+      </div>
+      <div class="field">
+        <label>서브 컬러</label>
+        <div class="colorrow"><span class="swatch" id="sw-sub"></span><input type="text" class="colorcode" name="sub_color" id="f-sub" placeholder="#36CFC6"></div>
+      </div>
+      <div class="field" data-required>
+        <label>머리 색<span class="req">*</span></label>
+        <div class="colorrow"><span class="swatch" id="sw-hair"></span><input type="text" class="colorcode" name="hair_color" id="f-hair" placeholder="예) 보라색 또는 #8B5CF6"></div>
+        <span class="err">필수 항목입니다.</span>
+      </div>
+      <div class="field" data-required>
+        <label>눈 색<span class="req">*</span></label>
+        <div class="colorrow"><span class="swatch" id="sw-eye"></span><input type="text" class="colorcode" name="eye_color" id="f-eye" placeholder="예) 초록색 또는 #FFB347"></div>
+        <span class="err">필수 항목입니다.</span>
+      </div>
+      <div class="field">
+        <label>특징적인 아이템 / 장식</label>
+        <input type="text" name="item" placeholder="예) 별 모양 머리핀, 토끼 귀">
+      </div>
+      <div class="field">
+        <label>프로필 이미지 URL</label>
+        <input type="url" name="image_url" placeholder="https://...">
+        <span class="hint">트위터 헤더, 공식 일러스트 등 이미지 직접 링크</span>
+      </div>
+    </section>
+
+    <!-- 방송 활동 -->
+    <section class="card">
+      <h2 class="sec-head">📡 방송 활동</h2>
+      <div class="field" data-required data-type="url">
+        <label>채널 URL<span class="req">*</span></label>
+        <input type="url" name="channel_url" id="f-channel" placeholder="https://ch.sooplive.co.kr/...">
+        <span class="err">올바른 URL을 입력해 주세요.</span>
+      </div>
+      <div class="field">
+        <label>방송 요일 / 시간대</label>
+        <input type="text" name="schedule" placeholder="예) 화·목·토 저녁 9시">
+      </div>
+      <div class="field">
+        <label>주요 방송 컨텐츠</label>
+        <input type="text" name="content" placeholder="예) 게임, 저챗, 노래">
+      </div>
+      <div class="field">
+        <label>주로 하는 게임</label>
+        <input type="text" name="games" placeholder="예) 발로란트, 마인크래프트">
+      </div>
+    </section>
+
+    <!-- 노래 · 음악 -->
+    <section class="card">
+      <h2 class="sec-head">🎵 노래 · 음악</h2>
+      <div class="field" data-required>
+        <label>노래방송 여부<span class="req">*</span></label>
+        <select name="sing" id="f-sing">
+          <option value="">— 선택 —</option>
+          <option>정기적으로 함</option><option>가끔 함</option><option>안 함</option>
+        </select>
+        <span class="err">필수 항목입니다.</span>
+      </div>
+      <div class="field">
+        <label>좋아하는 장르</label>
+        <input type="text" name="fav_genre" placeholder="예) J-POP, 발라드">
+      </div>
+      <div class="field">
+        <label>기피 장르</label>
+        <input type="text" name="avoid_genre" placeholder="예) 고음 곡">
+      </div>
+      <div class="field">
+        <label>자주 부르는 / 18번 곡</label>
+        <input type="text" name="signature_song" placeholder="곡 제목">
+      </div>
+      <div class="field">
+        <label>노래 클립 URL</label>
+        <input type="url" name="song_clip" placeholder="https://...">
+        <span class="hint">유튜브, 클립, VOD 등 노래를 들을 수 있는 링크</span>
+      </div>
+    </section>
+
+    <!-- SNS / 링크 -->
+    <section class="card">
+      <h2 class="sec-head">🔗 SNS / 링크</h2>
+      <div class="field"><label>X (트위터)</label><input type="url" name="twitter" placeholder="https://x.com/..."></div>
+      <div class="field"><label>유튜브</label><input type="url" name="youtube" placeholder="https://youtube.com/@..."></div>
+      <div class="field"><label>디스코드 / 팬카페</label><input type="url" name="discord" placeholder="https://..."></div>
+      <div class="field"><label>기타 링크</label><input type="text" name="other_link" placeholder="https://..."></div>
+    </section>
+
+    <!-- 캐릭터 설정 -->
+    <section class="card">
+      <h2 class="sec-head">✨ 캐릭터 설정</h2>
+      <div class="field"><label>성격 / 분위기 키워드</label><input type="text" name="personality" placeholder="예) 밝음, 4차원, 츤데레"></div>
+      <div class="field"><label>좋아하는 것</label><input type="text" name="likes" placeholder="예) 딸기우유, 고양이"></div>
+      <div class="field"><label>싫어하는 것 / 약점</label><input type="text" name="dislikes" placeholder="예) 벌레, 매운 거"></div>
+      <div class="field"><label>팬 명칭</label><input type="text" name="fan_name" placeholder="예) 별가족"></div>
+      <div class="field"><label>특유의 말버릇 / 유행어</label><input type="text" name="catchphrase" placeholder="예) 뿅~"></div>
+    </section>
+
+    <!-- 레이아웃 선택 -->
+    <section class="card">
+      <h2 class="sec-head">📐 프로필 레이아웃</h2>
+      <p class="sec-desc">프로필 페이지가 어떤 느낌이면 좋을지 골라주세요. 모두 SOOP 게시판에 맞춘 세로형·모바일 대응이에요. 마음에 드는 게 없으면 맨 마지막 칸에서 직접 그린 그림이나 참고 이미지를 보내주셔도 돼요.</p>
+
+      <div class="lay-grid" id="layGrid">
+        <div class="lay" data-lay="미니멀 카드형">
+          <div class="frame"><iframe src="layouts/minimal.html" title="미니멀 카드형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
+          <div class="lname">미니멀 카드형 <a class="zoom" href="layouts/minimal.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">여백 많고 깔끔. 중앙 정렬, 절제된 색</div>
+        </div>
+
+        <div class="lay" data-lay="컬러 이모지형">
+          <div class="frame"><iframe src="layouts/emoji.html" title="컬러 이모지형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
+          <div class="lname">컬러 이모지형 <a class="zoom" href="layouts/emoji.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">따뜻하고 아기자기. 이모지·태그가 풍부</div>
+        </div>
+
+        <div class="lay" data-lay="정보 대시보드형">
+          <div class="frame"><iframe src="layouts/dashboard.html" title="정보 대시보드형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
+          <div class="lname">정보 대시보드형 <a class="zoom" href="layouts/dashboard.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">꽉 찬 느낌. 목표·후원표 등 리스트 많이</div>
+        </div>
+
+        <div class="lay" data-lay="큐트 핑크형">
+          <div class="frame"><iframe src="layouts/pink.html" title="큐트 핑크형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
+          <div class="lname">큐트 핑크형 <a class="zoom" href="layouts/pink.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">손글씨 느낌·하트 장식. 리데레 스타일</div>
+        </div>
+
+        <div class="lay" data-lay="다크 네온형">
+          <div class="frame"><iframe src="layouts/dark.html" title="다크 네온형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
+          <div class="lname">다크 네온형 <a class="zoom" href="layouts/dark.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">어두운 배경 + 형광 포인트. 시크·게이머</div>
+        </div>
+
+        <div class="lay" data-lay="매거진 세로형">
+          <div class="frame"><iframe src="layouts/magazine.html" title="매거진 세로형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
+          <div class="lname">매거진 세로형 <a class="zoom" href="layouts/magazine.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">큰 상단 이미지 + 잡지처럼 정돈된 흐름</div>
+        </div>
+
+        <div class="lay attach" data-lay="직접 첨부">
+          <div class="big">📎</div>
+          <div class="lname" style="margin:0">원하는 게 없어요 <span class="check" style="display:none"></span></div>
+          <div class="ldesc">직접 그린 그림 / 참고 이미지를 보낼게요</div>
+        </div>
+      </div>
+
+      <div class="attach-panel" id="attachPanel">
+        <div class="field" style="margin-bottom:0">
+          <label>참고 이미지 링크 또는 설명</label>
+          <textarea name="layout_ref" id="attachRef" placeholder="예) 종이에 그린 그림을 사진 찍어 트위터/imgur 등에 올리고 그 주소를 붙여넣어 주세요. 또는 원하는 구성을 글로 적어주셔도 돼요."></textarea>
+          <span class="hint">이미지를 트위터·imgur 등에 올린 뒤 그 링크를 붙여넣으면 제가 바로 볼 수 있어요. (파일 직접 업로드를 원하면 알려주세요)</span>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:18px">
+        <label>추가로 원하는 탭 (선택)</label>
+        <div id="pageBox" style="display:flex;flex-wrap:wrap;gap:8px 14px;font-size:.88rem">
+          <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" data-page="일정" checked> 일정</label>
+          <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" data-page="노래책" checked> 노래책</label>
+          <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" data-page="공지"> 공지</label>
+          <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" data-page="업보"> 업보</label>
+          <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" data-page="일기"> 일기</label>
+          <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" data-page="옷장"> 옷장</label>
+        </div>
+        <span class="hint">프로필(메인) 외에 별도 페이지가 필요하면 골라주세요.</span>
+      </div>
+
+      <input type="hidden" name="layout_choice" id="h-choice">
+      <input type="hidden" name="layout_pages" id="h-pages">
+    </section>
+
+    <!-- 당부 -->
+    <section class="card">
+      <h2 class="sec-head">📝 당부 및 참고사항</h2>
+      <div class="field">
+        <label>추가로 남기고 싶은 말</label>
+        <textarea name="notes" placeholder="자유롭게 적어주세요"></textarea>
+      </div>
+    </section>
+
+    <button type="submit" class="submit" id="submitBtn">정보 등록하기</button>
+    <p class="footnote">제출된 정보는 프로필 페이지 작성 목적으로만 사용됩니다.</p>
+  </form>
+
+  <!-- success -->
+  <div class="done" id="done">
+    <span class="ribbon">🎀</span>
+    <h2>등록 완료!</h2>
+    <p>정보가 성공적으로 전달되었습니다. 검토 후 프로필이 작성될 예정이에요. 감사합니다 ✨</p>
+  </div>
+
+</div>
+
+<script>
+  /* =========================================================
+     ⬇️ 여기에 본인의 Google Apps Script 웹앱 URL을 붙여넣으세요
+     (README의 설정 방법 참고)
+  ========================================================= */
+  const SCRIPT_URL = "여기에_APPS_SCRIPT_URL_붙여넣기";
+
+  const $ = s => document.querySelector(s);
+
+  /* ----- 실시간 미리보기 (색은 코드 직접 입력) ----- */
+  const COLOR_WORDS = {
+    '흰색':'#ffffff','하양':'#ffffff','하얀색':'#ffffff','검정':'#1a1a1a','검은색':'#1a1a1a',
+    '빨강':'#e5484d','빨간색':'#e5484d','주황':'#f76b15','주황색':'#f76b15',
+    '노랑':'#f5cf0a','노란색':'#f5cf0a','금색':'#e0b341',
+    '초록':'#46a758','초록색':'#46a758','연두':'#9bd647','연두색':'#9bd647',
+    '파랑':'#3b82f6','파란색':'#3b82f6','하늘':'#7cc6ff','하늘색':'#7cc6ff','남색':'#274690',
+    '보라':'#8b5cf6','보라색':'#8b5cf6','연보라':'#c4b5fd',
+    '분홍':'#ff8fab','분홍색':'#ff8fab','핑크':'#ff8fab','핑크색':'#ff8fab',
+    '민트':'#36cfc6','민트색':'#36cfc6','갈색':'#8b5a2b','회색':'#9ca3af','은색':'#c7ccd1'
+  };
+  function toColor(v){
+    v = (v || '').trim();
+    if(!v) return null;
+    if(COLOR_WORDS[v]) return COLOR_WORDS[v];
+    return v; /* HEX 또는 CSS 색 이름은 그대로 통과 */
+  }
+  function bindColor(inputId, swatchId, pvSwId){
+    const inp = $('#'+inputId);
+    const sync = () => {
+      const c = toColor(inp.value) || 'transparent';
+      const sw = $('#'+swatchId); if(sw) sw.style.background = c;
+      if(pvSwId){ const p = $('#'+pvSwId); if(p) p.style.background = c; }
+      paintOrb();
+    };
+    inp.addEventListener('input', sync);
+    sync();
+  }
+  function paintOrb(){
+    $('#pvOrb').style.background = toColor($('#f-hair').value) || '#ffd6e0';
+    $('#pvOrb').style.boxShadow = '0 0 0 4px #fff,0 0 0 6px '+(toColor($('#f-sub').value) || 'var(--line)');
+    $('#pvEye').style.background = toColor($('#f-eye').value) || '#fff';
+  }
+  bindColor('f-main','sw-main','pvMain');
+  bindColor('f-sub','sw-sub','pvSub');
+  bindColor('f-hair','sw-hair','pvHair');
+  bindColor('f-eye','sw-eye','pvEyeSw');
+  paintOrb();
+
+  const nameInput = $('#f-name'), pvName = $('#pvName');
+  nameInput.addEventListener('input', () => {
+    const v = nameInput.value.trim();
+    pvName.textContent = v || '활동명을 입력하면 여기 나와요';
+    pvName.classList.toggle('placeholder', !v);
+  });
+
+  /* ----- 레이아웃 선택 ----- */
+  var chosenLayout = '';
+  document.querySelectorAll('#layGrid .lay').forEach(function(el){
+    el.addEventListener('click', function(){
+      document.querySelectorAll('#layGrid .lay').forEach(function(x){ x.classList.remove('sel'); });
+      el.classList.add('sel');
+      chosenLayout = el.dataset.lay;
+      var isAttach = (chosenLayout === '직접 첨부');
+      document.getElementById('attachPanel').classList.toggle('show', isAttach);
+      document.getElementById('h-choice').value = chosenLayout;
+    });
+  });
+
+  function syncPages(){
+    var picked = Array.prototype.slice
+      .call(document.querySelectorAll('#pageBox input[data-page]:checked'))
+      .map(function(x){ return x.dataset.page; });
+    document.getElementById('h-pages').value = ['프로필'].concat(picked).join(', ');
+  }
+  document.querySelectorAll('#pageBox input[data-page]').forEach(function(cb){
+    cb.addEventListener('change', syncPages);
+  });
+  syncPages();
+
+  /* ----- 검증 ----- */
+  function validate(){
+    let ok = true, firstBad = null;
+    document.querySelectorAll('.field[data-required]').forEach(f => {
+      const ctrl = f.querySelector('input,select');
+      let bad = !ctrl.value.trim();
+      if(!bad && f.dataset.type === 'url'){
+        try { new URL(ctrl.value.trim()); } catch(e){ bad = true; }
+      }
+      f.classList.toggle('invalid', bad);
+      if(bad){ ok = false; if(!firstBad) firstBad = f; }
+    });
+    if(firstBad) firstBad.scrollIntoView({behavior:'smooth', block:'center'});
+    return ok;
+  }
+  document.querySelectorAll('.field[data-required] input,.field[data-required] select')
+    .forEach(el => el.addEventListener('input', () => el.closest('.field').classList.remove('invalid')));
+
+  /* ----- 제출 ----- */
+  const form = $('#vform'), btn = $('#submitBtn');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if(form.website.value) return;            // honeypot
+    if(!validate()) return;
+
+    btn.disabled = true;
+    btn.textContent = '전송 중...';
+
+    const data = new URLSearchParams();
+    new FormData(form).forEach((v,k) => { if(k!=='website') data.append(k, v); });
+
+    try{
+      if(SCRIPT_URL && !SCRIPT_URL.includes('붙여넣기')){
+        await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body:data });
+      }
+      form.style.display = 'none';
+      document.querySelector('.preview').style.display = 'none';
+      const done = $('#done'); done.classList.add('show');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }catch(err){
+      btn.disabled = false;
+      btn.textContent = '정보 등록하기';
+      alert('전송 중 문제가 발생했어요. 잠시 후 다시 시도해 주세요.');
+    }
+  });
+</script>
+</body>
+</html>

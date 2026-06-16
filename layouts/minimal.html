@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>별하루 · 미니멀 카드형</title>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root{--mint:#36b8a8;--mint-soft:#e6f7f4;--ink:#2b3a38;--muted:#8aa3a0;--line:#e7eeec;--bg:#f6faf9}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);font-family:'Gowun Dodum',sans-serif;color:var(--ink);line-height:1.7;padding:0 16px 50px}
+  .wrap{max-width:520px;margin:0 auto}
+  nav{display:flex;gap:4px;justify-content:center;padding:16px 0;position:sticky;top:0;background:rgba(246,250,249,.9);backdrop-filter:blur(8px);z-index:9}
+  nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:999px}
+  nav a.on{background:var(--mint);color:#fff}
+  .hero{text-align:center;padding:24px 0 8px}
+  .avatar{width:120px;height:120px;border-radius:50%;margin:0 auto 16px;background:linear-gradient(135deg,#7fe0d3,#36b8a8);display:flex;align-items:center;justify-content:center;font-size:52px;box-shadow:0 10px 30px rgba(54,184,168,.25)}
+  h1{font-size:30px;font-weight:400;font-family:'Jua',sans-serif;letter-spacing:1px}
+  .sub{color:var(--muted);margin:4px 0 14px}
+  .tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+  .tag{background:var(--mint-soft);color:var(--mint);border-radius:999px;padding:5px 14px;font-size:13px}
+  .sect{margin-top:30px}
+  .sect h2{font-size:14px;color:var(--muted);font-weight:400;letter-spacing:2px;text-align:center;margin-bottom:14px}
+  .info{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .info .row{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .info .row:last-child{border:none}
+  .info .ic{font-size:18px;width:24px;text-align:center}
+  .info .k{color:var(--muted);font-size:13px;width:72px}
+  .info .v{font-weight:400}
+  .days{display:flex;gap:8px;justify-content:center}
+  .day{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);color:var(--muted);font-size:14px}
+  .day.on{background:var(--mint);color:#fff;border-color:var(--mint)}
+  .note{text-align:center;color:var(--muted);font-size:13px;margin-top:10px}
+  .links{display:grid;gap:10px}
+  .link{display:flex;align-items:center;justify-content:center;gap:8px;padding:15px;background:#fff;border:1.5px solid var(--mint);color:var(--mint);border-radius:14px;text-decoration:none;font-size:15px;transition:all .15s}
+  .link:hover{background:var(--mint);color:#fff}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:36px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="on" href="#">프로필</a><a href="#">일정</a><a href="#">노래책</a><a href="#">업보</a></nav>
+
+  <div class="hero">
+    <div class="avatar">🌙</div>
+    <h1>별하루</h1>
+    <p class="sub">노래하는 새벽 별 요정 · VTuber</p>
+    <div class="tags"><span class="tag">소통</span><span class="tag">노래</span><span class="tag">힐링</span><span class="tag">INFP</span></div>
+  </div>
+
+  <div class="sect">
+    <h2>P R O F I L E</h2>
+    <div class="info">
+      <div class="row"><span class="ic">🎂</span><span class="k">생일</span><span class="v">3월 21일</span></div>
+      <div class="row"><span class="ic">✨</span><span class="k">데뷔</span><span class="v">2025. 06. 01</span></div>
+      <div class="row"><span class="ic">🎨</span><span class="k">메인 컬러</span><span class="v">민트 · 화이트</span></div>
+      <div class="row"><span class="ic">🎵</span><span class="k">장르</span><span class="v">J-POP · 발라드</span></div>
+      <div class="row"><span class="ic">💙</span><span class="k">팬닉</span><span class="v">하루별</span></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>S C H E D U L E</h2>
+    <div class="days"><span class="day">일</span><span class="day">월</span><span class="day on">화</span><span class="day">수</span><span class="day on">목</span><span class="day">금</span><span class="day on">토</span></div>
+    <p class="note">화 · 목 · 토 저녁 9시 방송</p>
+  </div>
+
+  <div class="sect">
+    <h2>L I N K S</h2>
+    <div class="links">
+      <a class="link" href="#">🎮 SOOP</a>
+      <a class="link" href="#">▶ YouTube</a>
+      <a class="link" href="#">𝕏 트위터</a>
+      <a class="link" href="#">☕ 팬카페</a>
+    </div>
+  </div>
+
+  <footer>© 2026 별하루</footer>
+</div>
+</body>
+</html>

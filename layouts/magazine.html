@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>별하루 · 매거진 세로형</title>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#7a4a6b;--accent-soft:#f1e7ee;--ink:#2e2a2c;--muted:#9a8e94;--line:#e7dfe3;--bg:#fbf7f3}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);font-family:'Gowun Dodum',sans-serif;color:var(--ink);line-height:1.8;padding:0 18px 56px}
+  .wrap{max-width:560px;margin:0 auto}
+  nav{display:flex;gap:18px;justify-content:center;padding:18px 0;border-bottom:1px solid var(--line)}
+  nav a{font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:1px}
+  nav a.on{color:var(--accent)}
+  .hero{margin-top:24px}
+  .cover{width:100%;height:200px;border-radius:6px;background:linear-gradient(135deg,#c9a9bf,#7a4a6b);display:flex;align-items:center;justify-content:center;font-size:72px}
+  .eyebrow{font-size:12px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin-top:22px}
+  h1{font-family:'Gowun Batang',serif;font-weight:700;font-size:40px;line-height:1.15;margin:6px 0 10px}
+  .lead{font-family:'Gowun Batang',serif;font-size:17px;color:#5b5358;border-left:3px solid var(--accent);padding-left:14px}
+  .sect{margin-top:34px}
+  .sect h2{font-family:'Gowun Batang',serif;font-size:15px;letter-spacing:2px;color:var(--accent);padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:14px}
+  .meta{display:flex;flex-direction:column}
+  .meta .row{display:flex;padding:9px 0;border-bottom:1px dotted var(--line)}
+  .meta .row:last-child{border:none}
+  .meta .k{width:96px;color:var(--muted);font-size:14px;flex-shrink:0;letter-spacing:1px}
+  .meta .v{font-weight:400}
+  .days{display:flex;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .day{flex:1;text-align:center;padding:11px 0;font-size:13px;color:var(--muted);border-right:1px solid var(--line)}
+  .day:last-child{border:none}
+  .day.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
+  .links{display:flex;flex-direction:column;gap:0}
+  .link{display:flex;justify-content:space-between;align-items:center;padding:15px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:15px}
+  .link:last-child{border:none}
+  .link .ar{color:var(--accent)}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:40px;letter-spacing:1px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="on" href="#">PROFILE</a><a href="#">일정</a><a href="#">노래책</a><a href="#">업보</a></nav>
+
+  <div class="hero">
+    <div class="cover">🌙</div>
+    <div class="eyebrow">VTuber · Singer</div>
+    <h1>별하루</h1>
+    <p class="lead">노래하는 새벽 별 요정. 조용한 새벽, 별빛 같은 목소리로 찾아옵니다.</p>
+  </div>
+
+  <div class="sect">
+    <h2>PROFILE</h2>
+    <div class="meta">
+      <div class="row"><span class="k">생일</span><span class="v">3월 21일</span></div>
+      <div class="row"><span class="k">데뷔</span><span class="v">2025. 06. 01</span></div>
+      <div class="row"><span class="k">소속</span><span class="v">개인세</span></div>
+      <div class="row"><span class="k">장르</span><span class="v">J-POP · 발라드</span></div>
+      <div class="row"><span class="k">팬닉</span><span class="v">하루별</span></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>SCHEDULE</h2>
+    <div class="days"><span class="day">일</span><span class="day">월</span><span class="day on">화</span><span class="day">수</span><span class="day on">목</span><span class="day">금</span><span class="day on">토</span></div>
+    <p style="color:var(--muted);font-size:13px;margin-top:10px;text-align:center">화 · 목 · 토 저녁 9시 방송</p>
+  </div>
+
+  <div class="sect">
+    <h2>LINKS</h2>
+    <div class="links">
+      <a class="link" href="#"><span>🎮 SOOP 채널</span><span class="ar">→</span></a>
+      <a class="link" href="#"><span>▶ YouTube</span><span class="ar">→</span></a>
+      <a class="link" href="#"><span>𝕏 트위터</span><span class="ar">→</span></a>
+      <a class="link" href="#"><span>☕ 팬카페</span><span class="ar">→</span></a>
+    </div>
+  </div>
+
+  <footer>© 2026 별하루</footer>
+</div>
+</body>
+</html>
