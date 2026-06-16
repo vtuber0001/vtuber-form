@@ -470,12 +470,21 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
   /* =========================================================
-     ⬇️ 여기에 본인의 Google Apps Script 웹앱 URL을 붙여넣으세요
-     (README의 설정 방법 참고)
+     ⬇️ 본인의 Supabase 값 두 개만 붙여넣으세요 (README 참고)
+        Supabase → Project Settings → API 에서 확인
   ========================================================= */
-  const SCRIPT_URL = "여기에_APPS_SCRIPT_URL_붙여넣기";
+  const SUPABASE_URL  = "여기에_SUPABASE_URL_붙여넣기";
+  const SUPABASE_ANON = "여기에_ANON_KEY_붙여넣기";
+
+  let db = null;
+  try {
+    if (window.supabase && !SUPABASE_URL.includes("붙여넣기")) {
+      db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    }
+  } catch (e) { console.error("Supabase init 오류:", e); }
 
   const $ = s => document.querySelector(s);
 
@@ -574,12 +583,13 @@
     btn.disabled = true;
     btn.textContent = '전송 중...';
 
-    const data = new URLSearchParams();
-    new FormData(form).forEach((v,k) => { if(k!=='website') data.append(k, v); });
+    const obj = {};
+    new FormData(form).forEach((v,k) => { if(k!=='website') obj[k] = v; });
 
     try{
-      if(SCRIPT_URL && !SCRIPT_URL.includes('붙여넣기')){
-        await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body:data });
+      if(db){
+        const { error } = await db.from('submissions').insert({ name: obj.name || '', data: obj });
+        if(error) throw error;
       }
       form.style.display = 'none';
       document.querySelector('.preview').style.display = 'none';
