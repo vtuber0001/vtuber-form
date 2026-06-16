@@ -3,88 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>별하루 · 컬러 이모지형</title>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+<title>별하루 · 팝 큐트</title>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root{--main:#f5b301;--soft:#fff6da;--ink:#5a4a1e;--muted:#b09a5e;--line:#f0e4c2;--bg:#fffdf3}
+  :root{--ink:#3a2a4d;--p1:#ff5d8f;--p2:#ffd23f;--p3:#3ec6e0;--p4:#9b7dff;--bg:#fff4fb}
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--bg);font-family:'Gowun Dodum',sans-serif;color:var(--ink);line-height:1.7;padding:0 16px 50px}
-  .wrap{max-width:560px;margin:0 auto}
-  nav{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:16px 0}
-  nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:6px 14px;border-radius:999px;background:var(--soft)}
-  nav a.on{background:var(--main);color:#fff}
-  .hero{text-align:center;padding:18px 0}
-  .avatar{width:130px;height:130px;border-radius:50%;margin:0 auto 14px;background:linear-gradient(135deg,#ffd970,#f5b301);display:flex;align-items:center;justify-content:center;font-size:58px;border:5px solid #fff;box-shadow:0 8px 26px rgba(245,179,1,.3)}
-  h1{font-family:'Jua',sans-serif;font-size:32px;font-weight:400}
-  .sub{color:var(--muted);margin-top:4px}
-  .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0}
-  .q{background:var(--soft);border-radius:18px;padding:14px 6px;text-align:center}
-  .q .e{font-size:24px}
-  .q .l{font-size:11px;color:var(--muted);margin-top:4px}
-  .q .v{font-size:13px;font-weight:400;margin-top:2px}
-  .card{background:#fff;border:2px solid var(--soft);border-radius:20px;padding:18px 20px;margin-bottom:14px}
-  .card h2{font-family:'Jua',sans-serif;font-size:20px;color:var(--main);margin-bottom:12px}
-  .lns{display:flex;flex-direction:column;gap:8px}
-  .lns .row{display:flex;gap:8px}
-  .lns .k{color:var(--muted);font-size:14px;width:64px;flex-shrink:0}
-  .days{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
-  .day{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--soft);color:var(--muted);font-size:13px}
-  .day.on{background:var(--main);color:#fff}
-  .pills{display:flex;gap:7px;flex-wrap:wrap}
-  .pill{border-radius:999px;padding:6px 14px;font-size:13px}
-  .pill.like{background:#fff0c2;color:#a07d12}
-  .pill.no{background:#f3f0e6;color:#9a9384}
-  .links{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .link{display:flex;align-items:center;justify-content:center;gap:6px;padding:13px;background:var(--soft);color:#a07d12;border-radius:999px;text-decoration:none;font-size:14px}
-  .link:hover{background:var(--main);color:#fff}
-  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+  body{background:var(--bg);background-image:radial-gradient(#ffd6ec 2px,transparent 2px);background-size:26px 26px;font-family:'Gaegu',cursive;color:var(--ink);line-height:1.6;padding:0 16px 70px}
+  .wrap{max-width:760px;margin:0 auto}
+  nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:18px 0}
+  nav a{font-family:'Jua',sans-serif;font-size:14px;color:#fff;text-decoration:none;padding:7px 16px;border-radius:999px;background:var(--p4);border:2.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+  nav a.on{background:var(--p1)}
+  .card{background:#fff;border:3px solid var(--ink);border-radius:22px;box-shadow:5px 5px 0 var(--ink);padding:20px 22px;margin-bottom:18px}
+  .hero{text-align:center}
+  .avatar{width:130px;height:130px;border-radius:50%;margin:0 auto 12px;background:var(--p2);border:3.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:62px;box-shadow:4px 4px 0 var(--ink)}
+  h1{font-family:'Jua',sans-serif;font-size:38px}
+  .sub{font-size:18px;color:#7a6a8d}
+  .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+  .badge{font-family:'Jua',sans-serif;font-size:13px;color:#fff;padding:4px 13px;border-radius:999px;border:2px solid var(--ink)}
+  .ch{font-family:'Jua',sans-serif;font-size:22px;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+  .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .q{text-align:center;border:2.5px solid var(--ink);border-radius:16px;padding:12px 4px;box-shadow:3px 3px 0 var(--ink)}
+  .q .e{font-size:26px}
+  .q .l{font-size:14px;color:#8a7a9d}
+  .q .v{font-family:'Jua',sans-serif;font-size:15px}
+  .lns{font-size:17px;display:flex;flex-direction:column;gap:7px}
+  .lns .k{color:var(--p1);font-family:'Jua',sans-serif;font-size:14px;margin-right:8px}
+  .days{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .day{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Jua',sans-serif;font-size:14px;border:2.5px solid var(--ink);background:#fff;color:#b9a9cc}
+  .day.on{background:var(--p3);color:#fff;box-shadow:3px 3px 0 var(--ink)}
+  .pills{display:flex;gap:8px;flex-wrap:wrap}
+  .pill{font-family:'Jua',sans-serif;font-size:14px;padding:6px 15px;border-radius:999px;border:2.5px solid var(--ink)}
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .link{font-family:'Jua',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;padding:14px;border-radius:16px;text-decoration:none;color:#fff;font-size:16px;border:2.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+  footer{text-align:center;font-family:'Jua',sans-serif;color:#b9a9cc;font-size:14px;margin-top:18px}
+  @media(max-width:480px){.quick{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <nav><a class="on" href="#">프로필</a><a href="#">일정</a><a href="#">노래책</a><a href="#">업보</a></nav>
 
-  <div class="hero">
+  <div class="card hero">
     <div class="avatar">🌙</div>
     <h1>별하루</h1>
     <p class="sub">노래하는 새벽 별 요정 ✨</p>
-  </div>
-
-  <div class="quick">
-    <div class="q"><div class="e">🎂</div><div class="l">생일</div><div class="v">3.21</div></div>
-    <div class="q"><div class="e">🎤</div><div class="l">장르</div><div class="v">J-POP</div></div>
-    <div class="q"><div class="e">🎮</div><div class="l">콘텐츠</div><div class="v">종겜</div></div>
-    <div class="q"><div class="e">💙</div><div class="l">팬닉</div><div class="v">하루별</div></div>
+    <div class="badges"><span class="badge" style="background:var(--p1)">소통</span><span class="badge" style="background:var(--p3)">노래</span><span class="badge" style="background:var(--p4)">종겜</span></div>
   </div>
 
   <div class="card">
-    <h2>기본 정보</h2>
-    <div class="lns">
-      <div class="row"><span class="k">데뷔</span><span>2025. 06. 01</span></div>
-      <div class="row"><span class="k">소속</span><span>개인세</span></div>
-      <div class="row"><span class="k">MBTI</span><span>INFP</span></div>
-      <div class="row"><span class="k">팬 이름</span><span>하루별 ✨</span></div>
+    <div class="quick">
+      <div class="q"><div class="e">🎂</div><div class="l">생일</div><div class="v">3.21</div></div>
+      <div class="q"><div class="e">🎤</div><div class="l">장르</div><div class="v">J-POP</div></div>
+      <div class="q"><div class="e">🎮</div><div class="l">콘텐츠</div><div class="v">종겜</div></div>
+      <div class="q"><div class="e">💖</div><div class="l">팬닉</div><div class="v">하루별</div></div>
     </div>
   </div>
 
   <div class="card">
-    <h2>📅 방송 요일</h2>
+    <div class="ch">⭐ 기본 정보</div>
+    <div class="lns">
+      <div><span class="k">데뷔</span>2025. 06. 01</div>
+      <div><span class="k">소속</span>개인세</div>
+      <div><span class="k">MBTI</span>INFP</div>
+      <div><span class="k">팬 이름</span>하루별 ✨</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch">📅 방송 요일</div>
     <div class="days"><span class="day">일</span><span class="day">월</span><span class="day on">화</span><span class="day">수</span><span class="day on">목</span><span class="day">금</span><span class="day on">토</span></div>
-    <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:10px">저녁 9시 방송 · 월요일 휴방</p>
   </div>
 
   <div class="card">
-    <h2>💛 좋아 · 싫어</h2>
-    <div class="pills" style="margin-bottom:10px"><span class="pill like">🍓 딸기우유</span><span class="pill like">🐱 고양이</span><span class="pill like">🌙 새벽</span></div>
-    <div class="pills"><span class="pill no">🚫 벌레</span><span class="pill no">🌶️ 매운 거</span></div>
+    <div class="ch">💛 좋아 · 싫어</div>
+    <div class="pills" style="margin-bottom:10px"><span class="pill" style="background:#fff0c2">🍓 딸기우유</span><span class="pill" style="background:#fff0c2">🐱 고양이</span><span class="pill" style="background:#fff0c2">🌙 새벽</span></div>
+    <div class="pills"><span class="pill" style="background:#f1edf6;color:#9a8fae">🚫 벌레</span><span class="pill" style="background:#f1edf6;color:#9a8fae">🌶️ 매운 거</span></div>
   </div>
 
   <div class="card">
-    <h2>🔗 링크</h2>
-    <div class="links"><a class="link" href="#">🎮 SOOP</a><a class="link" href="#">▶ YouTube</a><a class="link" href="#">𝕏 트위터</a><a class="link" href="#">☕ 팬카페</a></div>
+    <div class="ch">🔗 링크</div>
+    <div class="links"><a class="link" href="#" style="background:var(--p1)">YouTube</a><a class="link" href="#" style="background:var(--p3)">SOOP</a><a class="link" href="#" style="background:var(--p4)">트위터</a><a class="link" href="#" style="background:var(--p2);color:var(--ink)">팬카페</a></div>
   </div>
 
-  <footer>© 2026 별하루 💛</footer>
+  <footer>© 2026 별하루 ⭐</footer>
 </div>
 </body>
 </html>

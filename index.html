@@ -228,14 +228,12 @@
 
   <!-- live preview -->
   <div class="preview" aria-hidden="true">
-    <div class="pv-orb" id="pvOrb"><span class="eye" id="pvEye"></span></div>
+    <div class="pv-orb" id="pvOrb"></div>
     <div class="pv-meta">
       <div class="pv-name placeholder" id="pvName">활동명을 입력하면 여기 나와요</div>
       <div class="pv-swatches">
         <span id="pvMain" title="메인"></span>
         <span id="pvSub" title="서브"></span>
-        <span id="pvHair" title="머리"></span>
-        <span id="pvEyeSw" title="눈"></span>
       </div>
     </div>
   </div>
@@ -293,16 +291,6 @@
       <div class="field">
         <label>서브 컬러</label>
         <div class="colorrow"><span class="swatch" id="sw-sub"></span><input type="text" class="colorcode" name="sub_color" id="f-sub" placeholder="#36CFC6"></div>
-      </div>
-      <div class="field" data-required>
-        <label>머리 색<span class="req">*</span></label>
-        <div class="colorrow"><span class="swatch" id="sw-hair"></span><input type="text" class="colorcode" name="hair_color" id="f-hair" placeholder="예) 보라색 또는 #8B5CF6"></div>
-        <span class="err">필수 항목입니다.</span>
-      </div>
-      <div class="field" data-required>
-        <label>눈 색<span class="req">*</span></label>
-        <div class="colorrow"><span class="swatch" id="sw-eye"></span><input type="text" class="colorcode" name="eye_color" id="f-eye" placeholder="예) 초록색 또는 #FFB347"></div>
-        <span class="err">필수 항목입니다.</span>
       </div>
       <div class="field">
         <label>특징적인 아이템 / 장식</label>
@@ -392,40 +380,40 @@
       <p class="sec-desc">프로필 페이지가 어떤 느낌이면 좋을지 골라주세요. 모두 SOOP 게시판에 맞춘 세로형·모바일 대응이에요. 마음에 드는 게 없으면 맨 마지막 칸에서 직접 그린 그림이나 참고 이미지를 보내주셔도 돼요.</p>
 
       <div class="lay-grid" id="layGrid">
-        <div class="lay" data-lay="미니멀 카드형">
+        <div class="lay" data-lay="모던 미니멀">
           <div class="frame"><iframe src="layouts/minimal.html" title="미니멀 카드형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
-          <div class="lname">미니멀 카드형 <a class="zoom" href="layouts/minimal.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
-          <div class="ldesc">여백 많고 깔끔. 중앙 정렬, 절제된 색</div>
+          <div class="lname">모던 미니멀 <a class="zoom" href="layouts/minimal.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">거의 흑백 라인, 초절제·세련. 차분한 느낌</div>
         </div>
 
-        <div class="lay" data-lay="컬러 이모지형">
+        <div class="lay" data-lay="팝 큐트">
           <div class="frame"><iframe src="layouts/emoji.html" title="컬러 이모지형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
-          <div class="lname">컬러 이모지형 <a class="zoom" href="layouts/emoji.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
-          <div class="ldesc">따뜻하고 아기자기. 이모지·태그가 풍부</div>
+          <div class="lname">팝 큐트 <a class="zoom" href="layouts/emoji.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">쨍한 팝 컬러 + 두꺼운 보더. 발랄·아기자기</div>
         </div>
 
-        <div class="lay" data-lay="정보 대시보드형">
+        <div class="lay" data-lay="정보 대시보드">
           <div class="frame"><iframe src="layouts/dashboard.html" title="정보 대시보드형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
-          <div class="lname">정보 대시보드형 <a class="zoom" href="layouts/dashboard.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
-          <div class="ldesc">꽉 찬 느낌. 목표·후원표 등 리스트 많이</div>
+          <div class="lname">정보 대시보드 <a class="zoom" href="layouts/dashboard.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">목표·후원표 등 정보 많이. 또렷한 컬러 카드</div>
         </div>
 
-        <div class="lay" data-lay="큐트 핑크형">
+        <div class="lay" data-lay="파스텔 드리미">
           <div class="frame"><iframe src="layouts/pink.html" title="큐트 핑크형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
-          <div class="lname">큐트 핑크형 <a class="zoom" href="layouts/pink.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
-          <div class="ldesc">손글씨 느낌·하트 장식. 리데레 스타일</div>
+          <div class="lname">파스텔 드리미 <a class="zoom" href="layouts/pink.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">파스텔 그라데 + 말랑 글래스 카드. 몽환·소프트</div>
         </div>
 
-        <div class="lay" data-lay="다크 네온형">
+        <div class="lay" data-lay="다크 글래스">
           <div class="frame"><iframe src="layouts/dark.html" title="다크 네온형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
-          <div class="lname">다크 네온형 <a class="zoom" href="layouts/dark.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
-          <div class="ldesc">어두운 배경 + 형광 포인트. 시크·게이머</div>
+          <div class="lname">다크 글래스 <a class="zoom" href="layouts/dark.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">어두운 글래스 + 네온 글로우. 시크·고급</div>
         </div>
 
-        <div class="lay" data-lay="매거진 세로형">
+        <div class="lay" data-lay="에디토리얼 럭스">
           <div class="frame"><iframe src="layouts/magazine.html" title="매거진 세로형 미리보기" loading="lazy"></iframe><span class="veil"></span></div>
-          <div class="lname">매거진 세로형 <a class="zoom" href="layouts/magazine.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
-          <div class="ldesc">큰 상단 이미지 + 잡지처럼 정돈된 흐름</div>
+          <div class="lname">에디토리얼 럭스 <a class="zoom" href="layouts/magazine.html" target="_blank" rel="noopener">크게 보기 ↗</a> <span class="check"></span></div>
+          <div class="ldesc">아이보리+골드, 세리프. 잡지 같은 고급</div>
         </div>
 
         <div class="lay attach" data-lay="직접 첨부">
@@ -520,14 +508,11 @@
     sync();
   }
   function paintOrb(){
-    $('#pvOrb').style.background = toColor($('#f-hair').value) || '#ffd6e0';
+    $('#pvOrb').style.background = toColor($('#f-main').value) || '#ffd6e0';
     $('#pvOrb').style.boxShadow = '0 0 0 4px #fff,0 0 0 6px '+(toColor($('#f-sub').value) || 'var(--line)');
-    $('#pvEye').style.background = toColor($('#f-eye').value) || '#fff';
   }
   bindColor('f-main','sw-main','pvMain');
   bindColor('f-sub','sw-sub','pvSub');
-  bindColor('f-hair','sw-hair','pvHair');
-  bindColor('f-eye','sw-eye','pvEyeSw');
   paintOrb();
 
   const nameInput = $('#f-name'), pvName = $('#pvName');

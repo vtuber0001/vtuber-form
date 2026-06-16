@@ -3,73 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>별하루 · 큐트 핑크형</title>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<title>별하루 · 파스텔 드리미</title>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root{--pink:#ff8fab;--pink-dark:#d95f7f;--pink-light:#ffd6e0;--pink-card:#fff8f9;--bg:#fff0f3;--pen:'Nanum Pen Script',cursive}
+  :root{--ink:#6b5876;--pink:#ff9ec4;--lav:#b3a0ee;--mint:#8fe3d4;--card:rgba(255,255,255,.62);--bg1:#ffd9ec;--bg2:#d8c9ff;--bg3:#c5f0ec}
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--pink-dark);line-height:1.7;padding:0 16px 50px;position:relative;overflow-x:hidden}
-  body::before{content:'♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡';position:fixed;top:0;left:0;right:0;color:#fce4ec;font-size:18px;letter-spacing:14px;line-height:3.2;word-break:break-all;pointer-events:none;z-index:0;opacity:.6}
-  .wrap{max-width:520px;margin:0 auto;position:relative;z-index:1}
-  nav{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:16px 0}
-  nav a{font-size:14px;color:#c98aa0;text-decoration:none;padding:6px 12px}
-  nav a.on{color:var(--pink-dark);font-weight:700;border-bottom:2px solid var(--pink-dark)}
-  .logo{font-family:var(--pen);font-size:34px;color:#e8739a;text-align:center;display:block;margin-bottom:2px}
-  .card{background:var(--pink-card);border:1.5px solid var(--pink-light);border-radius:20px;box-shadow:0 4px 20px rgba(255,143,171,.12);padding:20px;margin-bottom:14px}
-  .ch{font-family:var(--pen);font-size:26px;color:var(--pink-dark);margin-bottom:12px}
-  .today{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center}
-  .avatar{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,#ffb6c8,#ff8fab);border:5px solid #fff;box-shadow:0 6px 24px rgba(255,100,150,.3);display:flex;align-items:center;justify-content:center;font-size:60px;flex-shrink:0}
-  .quote{font-size:24px;font-weight:700;text-align:center;flex:1;min-width:160px}
-  .info .row{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--pink-light)}
-  .info .row:last-child{border:none}
-  .info .k{width:66px;color:#f4a0b8;font-size:13px;font-weight:700;flex-shrink:0}
-  .info .v{font-weight:700;font-size:15px}
-  .tags{display:flex;gap:6px;flex-wrap:wrap}
-  .tag{background:var(--pink-light);color:var(--pink-dark);border-radius:999px;padding:4px 14px;font-size:13px;font-weight:500}
-  .days{display:flex;gap:7px;justify-content:center}
-  .day{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--pink-light);color:#e3a7ba;font-size:13px;font-weight:700}
-  .day.on{background:var(--pink);color:#fff;box-shadow:0 3px 10px rgba(255,143,171,.4)}
-  .links{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .link{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;background:var(--pink-light);color:var(--pink-dark);border-radius:999px;text-decoration:none;font-size:14px;font-weight:700}
-  .link:hover{background:var(--pink);color:#fff}
-  footer{text-align:center;color:var(--pink-light);font-size:13px;margin-top:24px}
+  body{min-height:100vh;background:linear-gradient(160deg,var(--bg1),var(--bg2) 55%,var(--bg3));font-family:'Quicksand',sans-serif;color:var(--ink);line-height:1.7;padding:0 16px 70px}
+  .wrap{max-width:760px;margin:0 auto}
+  nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:18px 0}
+  nav a{font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;padding:7px 16px;border-radius:999px;background:rgba(255,255,255,.55);backdrop-filter:blur(6px)}
+  nav a.on{background:#fff;color:var(--pink)}
+  .glass{background:var(--card);backdrop-filter:blur(14px);border:1.5px solid rgba(255,255,255,.7);border-radius:26px;box-shadow:0 10px 30px rgba(150,120,180,.18);padding:22px;margin-bottom:16px}
+  .hero{text-align:center}
+  .avatar{width:128px;height:128px;border-radius:50%;margin:0 auto 14px;background:linear-gradient(135deg,#ffc2dd,#cdbcff);border:5px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;font-size:60px;box-shadow:0 8px 26px rgba(255,140,190,.35)}
+  h1{font-family:'Gaegu',cursive;font-weight:700;font-size:42px;color:#e36aa0}
+  .sub{font-size:16px}
+  .tags{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+  .tag{font-family:'Gaegu',cursive;font-weight:700;font-size:14px;background:rgba(255,255,255,.7);border-radius:999px;padding:4px 14px}
+  .ch{font-family:'Gaegu',cursive;font-weight:700;font-size:24px;color:#e36aa0;margin-bottom:12px}
+  .meta .r{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed rgba(180,150,200,.35)}
+  .meta .r:last-child{border:none}
+  .meta .k{width:74px;color:#b58fc0;font-weight:700;font-size:14px;flex-shrink:0}
+  .meta .v{font-weight:700}
+  .days{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .day{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:rgba(255,255,255,.6);color:#c9a9d6}
+  .day.on{background:linear-gradient(135deg,#ff9ec4,#cdbcff);color:#fff;box-shadow:0 4px 12px rgba(255,140,190,.4)}
+  .pills{display:flex;gap:8px;flex-wrap:wrap}
+  .pill{font-family:'Gaegu',cursive;font-weight:700;font-size:15px;background:rgba(255,255,255,.7);border-radius:999px;padding:5px 15px}
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .link{display:flex;align-items:center;justify-content:center;gap:6px;padding:13px;border-radius:16px;text-decoration:none;color:#fff;font-weight:700;font-size:15px;background:linear-gradient(135deg,#ff9ec4,#b3a0ee)}
+  footer{text-align:center;color:rgba(107,88,118,.6);font-size:13px;margin-top:18px}
+  @media(max-width:480px){.links{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <span class="logo">별하루 ♡</span>
   <nav><a class="on" href="#">프로필</a><a href="#">일정</a><a href="#">노래책</a><a href="#">업보</a></nav>
 
-  <div class="card">
-    <div class="today">
-      <div class="avatar">🌙</div>
-      <div class="quote">오늘도<br>나 보러<br>왔네? ＞＜♥</div>
+  <div class="glass hero">
+    <div class="avatar">🌙</div>
+    <h1>별하루 ♡</h1>
+    <p class="sub">노래하는 새벽 별 요정</p>
+    <div class="tags"><span class="tag">💗 긍정적</span><span class="tag">🌙 4차원</span><span class="tag">🎀 애교</span></div>
+  </div>
+
+  <div class="glass">
+    <div class="ch">♡ 별하루는요</div>
+    <div class="meta">
+      <div class="r"><span class="k">한마디</span><span class="v">새벽 별 요정 ✨</span></div>
+      <div class="r"><span class="k">생일</span><span class="v">3월 21일</span></div>
+      <div class="r"><span class="k">데뷔</span><span class="v">2025. 06. 01</span></div>
+      <div class="r"><span class="k">팬닉</span><span class="v">하루별 ♥</span></div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="ch">♥ 야생의 별하루 특징!</div>
-    <div class="info">
-      <div class="row"><span class="k">이름</span><span class="v">별하루 · 하루</span></div>
-      <div class="row"><span class="k">한마디로</span><span class="v">새벽 별 요정 ✨</span></div>
-      <div class="row"><span class="k">성격</span><div class="tags"><span class="tag">긍정적</span><span class="tag">4차원</span><span class="tag">애교</span></div></div>
-      <div class="row"><span class="k">팬닉</span><span class="v">하루별 ♥</span></div>
-      <div class="row"><span class="k">생일/데뷔</span><span class="v">3/21 · 2025/6/1</span></div>
-    </div>
-  </div>
-
-  <div class="card">
+  <div class="glass">
     <div class="ch">📅 방송 요일</div>
     <div class="days"><span class="day">일</span><span class="day">월</span><span class="day on">화</span><span class="day">수</span><span class="day on">목</span><span class="day">금</span><span class="day on">토</span></div>
   </div>
 
-  <div class="card">
+  <div class="glass">
     <div class="ch">💗 좋아하는 것</div>
-    <div class="tags"><span class="tag">딸기우유</span><span class="tag">고양이</span><span class="tag">새벽</span><span class="tag">노래</span></div>
+    <div class="pills"><span class="pill">딸기우유</span><span class="pill">고양이</span><span class="pill">새벽</span><span class="pill">노래</span></div>
   </div>
 
-  <div class="card">
-    <div class="ch">⭐ 별하루 링크!</div>
+  <div class="glass">
+    <div class="ch">⭐ 링크</div>
     <div class="links"><a class="link" href="#">YouTube</a><a class="link" href="#">SOOP</a><a class="link" href="#">팬카페</a><a class="link" href="#">트위터</a></div>
   </div>
 
