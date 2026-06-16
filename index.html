@@ -166,6 +166,21 @@
 
   .honey{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
 
+  /* ---------- design custom chips ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{position:relative;cursor:pointer;user-select:none}
+  .chip input{position:absolute;opacity:0;pointer-events:none}
+  .chip span{
+    display:inline-flex;align-items:center;gap:5px;font-size:.86rem;
+    border:1.5px solid var(--line);background:#fbfaff;color:var(--ink);
+    border-radius:999px;padding:8px 15px;transition:all .15s;
+  }
+  .chip span:hover{border-color:var(--primary)}
+  .chip input:checked + span{border-color:var(--primary);background:#fff0f5;color:var(--primary-deep);font-weight:700}
+  .scale{display:flex;align-items:center;gap:10px}
+  .scale .ends{font-size:.78rem;color:var(--muted);flex:0 0 auto}
+  .scale input[type=range]{flex:1;accent-color:var(--primary)}
+
   /* ---------- layout picker ---------- */
   .lay-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
   @media (max-width:520px){.lay-grid{grid-template-columns:1fr}}
@@ -448,6 +463,102 @@
       <input type="hidden" name="layout_pages" id="h-pages">
     </section>
 
+    <!-- 디자인 커스텀 -->
+    <section class="card">
+      <h2 class="sec-head">🎨 디자인 커스텀</h2>
+      <p class="sec-desc">완전히 원하는 대로 만들어드리기 위한 취향 항목이에요. <strong>모르면 비워두셔도 돼요</strong> — 아는 만큼만 골라주세요. 위 레이아웃을 골랐어도, 여기 적어주시면 그 위에 맞춰 더 손봐드려요.</p>
+
+      <div class="field">
+        <label>전체 분위기 <span style="color:var(--muted);font-weight:400;font-size:.8rem">(여러 개 선택 가능)</span></label>
+        <div class="chips" data-name="design_mood">
+          <label class="chip"><input type="checkbox" value="귀여운"><span>🧸 귀여운</span></label>
+          <label class="chip"><input type="checkbox" value="시크한"><span>🖤 시크한</span></label>
+          <label class="chip"><input type="checkbox" value="청초한"><span>🤍 청초한</span></label>
+          <label class="chip"><input type="checkbox" value="발랄한"><span>🌈 발랄한</span></label>
+          <label class="chip"><input type="checkbox" value="몽환적인"><span>🌙 몽환적</span></label>
+          <label class="chip"><input type="checkbox" value="고급스러운"><span>👑 고급스러운</span></label>
+          <label class="chip"><input type="checkbox" value="레트로"><span>📼 레트로</span></label>
+          <label class="chip"><input type="checkbox" value="사이버"><span>⚡ 사이버</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>제목(이름) 글꼴 느낌</label>
+        <div class="chips" data-name="font_title" data-single="1">
+          <label class="chip"><input type="radio" name="font_title" value="둥글둥글"><span>둥글둥글</span></label>
+          <label class="chip"><input type="radio" name="font_title" value="손글씨"><span>손글씨</span></label>
+          <label class="chip"><input type="radio" name="font_title" value="각진 고딕"><span>각진 고딕</span></label>
+          <label class="chip"><input type="radio" name="font_title" value="우아한 명조"><span>우아한 명조</span></label>
+          <label class="chip"><input type="radio" name="font_title" value="세련된 영문"><span>세련된 영문</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>본문 글꼴 느낌</label>
+        <div class="chips" data-name="font_body" data-single="1">
+          <label class="chip"><input type="radio" name="font_body" value="깔끔 가독성"><span>깔끔·가독성</span></label>
+          <label class="chip"><input type="radio" name="font_body" value="부드러움"><span>부드러움</span></label>
+          <label class="chip"><input type="radio" name="font_body" value="또박또박"><span>또박또박</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>배경 느낌</label>
+        <div class="chips" data-name="bg_style" data-single="1">
+          <label class="chip"><input type="radio" name="bg_style" value="밝게"><span>밝게</span></label>
+          <label class="chip"><input type="radio" name="bg_style" value="어둡게"><span>어둡게</span></label>
+          <label class="chip"><input type="radio" name="bg_style" value="파스텔"><span>파스텔</span></label>
+          <label class="chip"><input type="radio" name="bg_style" value="그라데이션"><span>그라데이션</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>장식 정도</label>
+        <div class="scale">
+          <span class="ends">미니멀</span>
+          <input type="range" name="deco_level" min="1" max="5" value="3">
+          <span class="ends">화려하게</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>들어갔으면 하는 모티브 <span style="color:var(--muted);font-weight:400;font-size:.8rem">(여러 개 선택 가능)</span></label>
+        <div class="chips" data-name="motif">
+          <label class="chip"><input type="checkbox" value="별"><span>⭐ 별</span></label>
+          <label class="chip"><input type="checkbox" value="하트"><span>💗 하트</span></label>
+          <label class="chip"><input type="checkbox" value="리본"><span>🎀 리본</span></label>
+          <label class="chip"><input type="checkbox" value="꽃"><span>🌸 꽃</span></label>
+          <label class="chip"><input type="checkbox" value="음표"><span>🎵 음표</span></label>
+          <label class="chip"><input type="checkbox" value="달/밤하늘"><span>🌙 달·밤하늘</span></label>
+          <label class="chip"><input type="checkbox" value="게임/픽셀"><span>🎮 게임·픽셀</span></label>
+        </div>
+        <input type="text" name="motif_etc" placeholder="그 외 원하는 모티브 (예: 토끼, 체크무늬)" style="margin-top:8px">
+      </div>
+
+      <div class="field">
+        <label>참고하고 싶은 느낌 (링크)</label>
+        <textarea name="ref_link" placeholder="이런 느낌이면 좋겠다 싶은 다른 버튜버 프로필이나 사이트 링크를 붙여넣어 주세요. 여러 개도 좋아요."></textarea>
+      </div>
+
+      <div class="field">
+        <label>제일 강조하고 싶은 부분</label>
+        <input type="text" name="emphasis" placeholder="예) 맨 위에 일러스트 크게 / 노래 클립이 잘 보였으면">
+      </div>
+
+      <div class="field">
+        <label>피하고 싶은 스타일</label>
+        <input type="text" name="avoid_style" placeholder="예) 너무 어두운 건 싫어요, 폰트 너무 작은 거 X">
+      </div>
+
+      <div class="field">
+        <label>자유 요청 <span style="color:var(--muted);font-weight:400;font-size:.8rem">(마음껏 적어주세요)</span></label>
+        <textarea name="design_free" placeholder="원하는 디자인을 자유롭게 설명해 주세요. 디테일할수록 좋아요!"></textarea>
+      </div>
+
+      <input type="hidden" name="design_mood" id="h-mood">
+      <input type="hidden" name="motif" id="h-motif">
+    </section>
+
     <!-- 당부 -->
     <section class="card">
       <h2 class="sec-head">📝 당부 및 참고사항</h2>
@@ -476,8 +587,8 @@
      ⬇️ 본인의 Supabase 값 두 개만 붙여넣으세요 (README 참고)
         Supabase → Project Settings → API 에서 확인
   ========================================================= */
-  const SUPABASE_URL  = "https://ekqpskyvaclofiqjnhxp.supabase.co";
-  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrcXBza3l2YWNsb2ZpcWpuaHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1Nzg0NDAsImV4cCI6MjA5NzE1NDQ0MH0.s96oXnFmKFMAHhbS7-JpTu3e5tVZoFUQ_86x-tzOm6I";
+  const SUPABASE_URL  = "여기에_SUPABASE_URL_붙여넣기";
+  const SUPABASE_ANON = "여기에_ANON_KEY_붙여넣기";
 
   let db = null;
   try {
@@ -554,6 +665,23 @@
     cb.addEventListener('change', syncPages);
   });
   syncPages();
+
+  /* ----- 디자인 커스텀: 다중선택 칩 → hidden 필드 ----- */
+  function bindChips(groupName, hiddenId){
+    const box = document.querySelector('.chips[data-name="'+groupName+'"]');
+    const hid = document.getElementById(hiddenId);
+    if(!box || !hid) return;
+    const sync = () => {
+      const vals = Array.prototype.slice
+        .call(box.querySelectorAll('input:checked'))
+        .map(function(x){ return x.value; });
+      hid.value = vals.join(', ');
+    };
+    box.querySelectorAll('input').forEach(function(i){ i.addEventListener('change', sync); });
+    sync();
+  }
+  bindChips('design_mood','h-mood');
+  bindChips('motif','h-motif');
 
   /* ----- 검증 ----- */
   function validate(){

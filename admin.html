@@ -76,9 +76,9 @@
      ⬇️ index.html 과 똑같은 Supabase 값 두 개를 넣으세요
         + 관리자 비밀번호를 원하는 걸로 바꾸세요
   ========================================================= */
-  const SUPABASE_URL  = "https://ekqpskyvaclofiqjnhxp.supabase.co";
-  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrcXBza3l2YWNsb2ZpcWpuaHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1Nzg0NDAsImV4cCI6MjA5NzE1NDQ0MH0.s96oXnFmKFMAHhbS7-JpTu3e5tVZoFUQ_86x-tzOm6I";
-  const ADMIN_PW      = "1346";   // ← 원하는 비밀번호로 바꾸세요
+  const SUPABASE_URL  = "여기에_SUPABASE_URL_붙여넣기";
+  const SUPABASE_ANON = "여기에_ANON_KEY_붙여넣기";
+  const ADMIN_PW      = "1234";   // ← 원하는 비밀번호로 바꾸세요
 
   const $ = s => document.querySelector(s);
   let db = null, allRows = [];
@@ -125,7 +125,10 @@
     sing:'노래방송', fav_genre:'좋아하는 장르', avoid_genre:'기피 장르', signature_song:'18번곡', song_clip:'노래 클립',
     twitter:'트위터', youtube:'유튜브', discord:'디스코드', other_link:'기타링크',
     personality:'성격', likes:'좋아', dislikes:'싫어', fan_name:'팬명칭', catchphrase:'말버릇',
-    layout_choice:'레이아웃', layout_pages:'원하는 탭', layout_ref:'참고/첨부', notes:'당부'
+    layout_choice:'레이아웃', layout_pages:'원하는 탭', layout_ref:'참고/첨부',
+    design_mood:'분위기', font_title:'제목 글꼴', font_body:'본문 글꼴', bg_style:'배경',
+    deco_level:'장식 정도', motif:'모티브', motif_etc:'기타 모티브', ref_link:'참고 링크',
+    emphasis:'강조 부분', avoid_style:'피할 스타일', design_free:'자유 요청', notes:'당부'
   };
   const SKIP = ['name','main_color','sub_color','layout_choice'];
 
