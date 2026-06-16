@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>등록 관리자 · 버튜버 폼</title>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#2c2545;--muted:#8b86a3;--line:#ece8f6;--primary:#ff5fa2;--primary-deep:#e23d86;--bg:#f5f3fb;--card:#fff}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);font-family:'Gowun Dodum',sans-serif;color:var(--ink);line-height:1.6;padding:0 16px 60px}
+  .top{max-width:1000px;margin:0 auto;padding:26px 4px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .top h1{font-family:'Jua',sans-serif;font-size:1.5rem}
+  .top .count{background:#fff0f5;color:var(--primary-deep);border-radius:999px;padding:4px 14px;font-size:.85rem;font-weight:700}
+  .top .tools{margin-left:auto;display:flex;gap:8px}
+  .top input{border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font-family:inherit;font-size:.9rem;background:#fff;width:200px}
+  .top button{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;font-family:inherit;font-size:.9rem}
+  .top button:hover{border-color:var(--primary);color:var(--primary)}
+
+  .wrap{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .sub{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 6px 20px rgba(96,64,150,.06)}
+  .sub .head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .sub .nm{font-family:'Jua',sans-serif;font-size:1.15rem}
+  .sub .when{color:var(--muted);font-size:.76rem;margin-bottom:12px}
+  .sub .lay{display:inline-block;background:#fff0f5;color:var(--primary-deep);border-radius:999px;padding:3px 12px;font-size:.78rem;font-weight:700;margin-bottom:12px}
+  .sub .swrow{display:flex;gap:6px;margin-bottom:12px}
+  .sub .swrow span{width:22px;height:22px;border-radius:6px;border:1px solid rgba(0,0,0,.08)}
+  .row{display:flex;gap:8px;padding:6px 0;border-top:1px dashed var(--line);font-size:.86rem}
+  .row .k{color:var(--muted);width:80px;flex-shrink:0}
+  .row .v{flex:1;word-break:break-all}
+  .row .v a{color:var(--primary-deep)}
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:50px 0}
+  details.raw{margin-top:10px}
+  details.raw summary{cursor:pointer;color:var(--muted);font-size:.78rem}
+  details.raw pre{background:#faf8ff;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.72rem;overflow:auto;margin-top:6px;white-space:pre-wrap;word-break:break-all}
+
+  /* passcode gate */
+  .gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .gate .box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:34px 28px;max-width:340px;width:100%;text-align:center;box-shadow:0 14px 40px rgba(96,64,150,.12)}
+  .gate h2{font-family:'Jua',sans-serif;font-size:1.3rem;margin-bottom:6px}
+  .gate p{color:var(--muted);font-size:.85rem;margin-bottom:18px}
+  .gate input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:1rem;text-align:center;margin-bottom:10px;font-family:inherit}
+  .gate button{width:100%;border:none;background:linear-gradient(135deg,var(--primary),#b27cff);color:#fff;font-family:'Jua',sans-serif;font-size:1rem;border-radius:12px;padding:13px;cursor:pointer}
+  .gate .err{color:#f04e6b;font-size:.8rem;height:1em;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<!-- 비밀번호 잠금 -->
+<div class="gate" id="gate">
+  <div class="box">
+    <h2>🔒 관리자</h2>
+    <p>비밀번호를 입력해 주세요</p>
+    <input type="password" id="pw" placeholder="비밀번호" autocomplete="off">
+    <div class="err" id="pwErr"></div>
+    <button id="pwBtn">들어가기</button>
+  </div>
+</div>
+
+<div class="top">
+  <h1>📋 등록 목록</h1>
+  <span class="count" id="count">0건</span>
+  <div class="tools">
+    <input type="text" id="search" placeholder="활동명 검색...">
+    <button id="refresh">새로고침</button>
+  </div>
+</div>
+
+<div class="wrap" id="list">
+  <div class="empty">불러오는 중…</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  /* =========================================================
+     ⬇️ index.html 과 똑같은 Supabase 값 두 개를 넣으세요
+        + 관리자 비밀번호를 원하는 걸로 바꾸세요
+  ========================================================= */
+  const SUPABASE_URL  = "여기에_SUPABASE_URL_붙여넣기";
+  const SUPABASE_ANON = "여기에_ANON_KEY_붙여넣기";
+  const ADMIN_PW      = "1234";   // ← 원하는 비밀번호로 바꾸세요
+
+  const $ = s => document.querySelector(s);
+  let db = null, allRows = [];
+
+  /* ----- 비밀번호 ----- */
+  function unlock(){
+    if($('#pw').value === ADMIN_PW){
+      $('#gate').style.display = 'none';
+      init();
+    } else {
+      $('#pwErr').textContent = '비밀번호가 틀렸어요';
+    }
+  }
+  $('#pwBtn').addEventListener('click', unlock);
+  $('#pw').addEventListener('keydown', e => { if(e.key==='Enter') unlock(); });
+
+  /* ----- 데이터 ----- */
+  async function init(){
+    try{
+      db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    }catch(e){ $('#list').innerHTML = '<div class="empty">Supabase 설정을 확인해 주세요.</div>'; return; }
+    await load();
+  }
+  async function load(){
+    $('#list').innerHTML = '<div class="empty">불러오는 중…</div>';
+    const { data, error } = await db.from('submissions').select('*').order('created_at',{ascending:false});
+    if(error){
+      $('#list').innerHTML = '<div class="empty">읽기 권한이 없어요. (admin 읽기 SQL을 실행했는지 확인)</div>';
+      return;
+    }
+    allRows = data || [];
+    render();
+  }
+  function esc(s){ return (s==null?'':String(s)).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
+  function linkify(v){
+    const s = esc(v);
+    if(/^https?:\/\//i.test(s)) return '<a href="'+s+'" target="_blank" rel="noopener">'+s+'</a>';
+    return s;
+  }
+  const LABELS = {
+    reading:'읽는 법', debut:'데뷔', birthday:'생일', agency:'소속', gender:'성별', bio:'소개',
+    main_color:'메인색', sub_color:'서브색', item:'아이템', image_url:'프로필 이미지',
+    channel_url:'채널', schedule:'방송요일', content:'콘텐츠', games:'게임',
+    sing:'노래방송', fav_genre:'좋아하는 장르', avoid_genre:'기피 장르', signature_song:'18번곡', song_clip:'노래 클립',
+    twitter:'트위터', youtube:'유튜브', discord:'디스코드', other_link:'기타링크',
+    personality:'성격', likes:'좋아', dislikes:'싫어', fan_name:'팬명칭', catchphrase:'말버릇',
+    layout_choice:'레이아웃', layout_pages:'원하는 탭', layout_ref:'참고/첨부', notes:'당부'
+  };
+  const SKIP = ['name','main_color','sub_color','layout_choice'];
+
+  function card(r){
+    const d = r.data || {};
+    const when = new Date(r.created_at).toLocaleString('ko-KR');
+    let rows = '';
+    Object.keys(LABELS).forEach(k=>{
+      if(SKIP.includes(k)) return;
+      const v = (d[k]||'').toString().trim();
+      if(!v) return;
+      rows += '<div class="row"><span class="k">'+LABELS[k]+'</span><span class="v">'+linkify(v)+'</span></div>';
+    });
+    const sw = (c)=> c ? '<span style="background:'+esc(c)+'"></span>' : '';
+    return '<div class="sub">'+
+      '<div class="head"><span class="nm">'+esc(r.name||'(이름 없음)')+'</span></div>'+
+      '<div class="when">'+when+'</div>'+
+      (d.layout_choice ? '<div class="lay">🎨 '+esc(d.layout_choice)+'</div>' : '')+
+      '<div class="swrow">'+sw(d.main_color)+sw(d.sub_color)+'</div>'+
+      rows+
+      '<details class="raw"><summary>전체 원본 보기</summary><pre>'+esc(JSON.stringify(d,null,2))+'</pre></details>'+
+    '</div>';
+  }
+  function render(){
+    const q = $('#search').value.trim().toLowerCase();
+    const rows = allRows.filter(r => !q || (r.name||'').toLowerCase().includes(q));
+    $('#count').textContent = rows.length + '건';
+    $('#list').innerHTML = rows.length ? rows.map(card).join('') : '<div class="empty">등록된 응답이 없어요.</div>';
+  }
+  $('#search').addEventListener('input', render);
+  $('#refresh').addEventListener('click', load);
+</script>
+</body>
+</html>
