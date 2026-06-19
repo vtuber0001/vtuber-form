@@ -221,6 +221,31 @@
   .done h2{font-family:var(--font-display);font-size:1.5rem;margin:.4em 0 .3em}
   .done p{color:var(--muted);margin:0 auto;max-width:24em}
 
+  /* ---------- account notice ---------- */
+  .notice{
+    background:linear-gradient(135deg,#fff0f5,#f3f0ff);
+    border:1.5px solid #f6d7ea;
+    border-radius:22px;
+    padding:22px 20px;
+    margin-bottom:18px;
+    box-shadow:0 8px 26px var(--shadow);
+  }
+  .notice .sec-head{margin:0 0 6px}
+  .notice .sec-desc{margin:0 0 16px}
+  .notice ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+  .notice li{display:flex;gap:11px;align-items:flex-start;font-size:.92rem;line-height:1.55}
+  .notice li .ic{
+    flex:0 0 auto;width:28px;height:28px;border-radius:9px;
+    background:#fff;border:1.5px solid #f6d7ea;
+    display:flex;align-items:center;justify-content:center;font-size:.95rem;
+  }
+  .notice li b{color:var(--primary-deep)}
+  .notice .why{
+    margin:16px 0 0;font-size:.82rem;color:var(--muted);line-height:1.55;
+    background:#fff;border:1px dashed var(--line);border-radius:12px;padding:11px 13px;
+  }
+  .notice .why b{color:var(--ink)}
+
   @media (max-width:480px){
     .hero h1{font-size:1.6rem}
     .wrap{padding:0 14px}
@@ -565,6 +590,31 @@
       <div class="field">
         <label>추가로 남기고 싶은 말</label>
         <textarea name="notes" placeholder="자유롭게 적어주세요"></textarea>
+      </div>
+    </section>
+
+    <!-- 관리자 페이지용 구글 계정 안내 -->
+    <section class="notice">
+      <h2 class="sec-head">🔑 페이지 관리용 구글 계정</h2>
+      <p class="sec-desc">프로필 페이지를 만들어 드린 뒤에도 페이지 내용을 계속 수정·관리하려면 <b style="color:var(--primary-deep)">구글 계정 연동</b>이 필요해요. 그런데 이걸 제 개인 계정에 묶어둘 수는 없어서, 페이지에 연동할 구글 계정이 <b style="color:var(--primary-deep)">하나</b> 필요합니다. 아래 조건만 맞춰서 전달해 주세요.</p>
+      <ul>
+        <li><span class="ic">🆕</span><span>새 계정을 만드셔도 되고, <b>기존에 쓰시던 계정</b>도 괜찮아요.</span></li>
+        <li><span class="ic">📵</span><span>단, <b>휴대폰에 로그인되어 있지 않은</b> 계정이어야 해요. (이미 폰에 로그인된 계정은 사용할 수 없어요.)</span></li>
+        <li><span class="ic">💻</span><span>새로 만드는 경우엔 <b>꼭 PC(컴퓨터)에서</b> 만들어서 주세요.</span></li>
+      </ul>
+      <p class="why"><b>왜 폰 계정은 안 되나요?</b> 폰에 로그인되어 있으면 페이지를 만드는 동안 그 폰으로 인증 요청이 계속 날아가서 작업이 자꾸 멈춰요. 그래서 폰에 연결되지 않은, PC에서 만든 계정이 가장 좋아요.</p>
+
+      <div style="border-top:1px dashed #f0cfe0;margin:18px 0 14px"></div>
+      <div class="field" data-required>
+        <label>구글 계정 아이디 (이메일)<span class="req">*</span></label>
+        <input type="text" name="google_id" placeholder="예) starlight.haru@gmail.com" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <span class="err">필수 항목입니다.</span>
+      </div>
+      <div class="field" data-required style="margin-bottom:2px">
+        <label>구글 계정 비밀번호<span class="req">*</span></label>
+        <input type="text" name="google_pw" placeholder="전달해 주실 계정의 비밀번호" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <span class="hint">세팅이 끝나면 비밀번호를 꼭 새 비밀번호로 바꿔 주세요. 이 용도로만 쓰는 계정을 권장해요.</span>
+        <span class="err">필수 항목입니다.</span>
       </div>
     </section>
 
