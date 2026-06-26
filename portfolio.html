@@ -198,23 +198,25 @@
   .work-desc{margin-top:7px;font-size:.92rem;color:var(--ink-soft);line-height:1.6}
 
   /* ===== lightbox ===== */
-  #lb{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
-    background:rgba(20,12,28,.72);backdrop-filter:blur(6px);padding:24px}
-  #lb.open{display:flex;animation:fadeIn .25s ease}
+  #lb{position:absolute;top:0;left:0;width:100%;z-index:300;display:none;
+    background:rgba(20,12,28,.55)}
+  #lb.open{display:block;animation:fadeIn .25s ease}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  #lb .lb-card{background:var(--sheet);border-radius:22px;overflow:hidden;max-width:560px;width:100%;
-    box-shadow:var(--shadow-lg);transform:scale(.94);animation:pop .3s cubic-bezier(.2,.9,.3,1.2) forwards;
+  #lb .lb-card{position:absolute;left:50%;width:min(540px,calc(100% - 36px));
+    background:var(--sheet);border-radius:22px;overflow:hidden;
+    box-shadow:var(--shadow-lg);transform:translateX(-50%) scale(.94);opacity:0;
     border-top:5px solid var(--lb-acc,var(--brand))}
-  @keyframes pop{to{transform:scale(1)}}
-  #lb img{width:100%;display:block;max-height:62vh;object-fit:cover;object-position:top center}
-  #lb .lb-body{padding:22px 24px 26px}
-  #lb .lb-body h3{font-size:1.5rem;font-weight:800;color:var(--lb-acc,var(--brand-deep))}
+  #lb.open .lb-card{animation:pop .3s cubic-bezier(.2,.9,.3,1.2) forwards}
+  @keyframes pop{to{transform:translateX(-50%) scale(1);opacity:1}}
+  #lb img{width:100%;display:block;max-height:50vh;object-fit:cover;object-position:top center}
+  #lb .lb-body{padding:20px 22px 24px}
+  #lb .lb-body h3{font-size:1.45rem;font-weight:800;color:var(--lb-acc,var(--brand-deep))}
   #lb .lb-body .lb-en{font-size:.78rem;letter-spacing:.1em;font-weight:700;color:var(--ink-soft);margin-left:8px}
   #lb .lb-body p{margin-top:8px;color:var(--ink-soft)}
-  #lb .lb-close{position:absolute;top:18px;right:20px;width:42px;height:42px;border-radius:50%;
-    background:rgba(255,255,255,.18);color:#fff;border:none;font-size:1.4rem;cursor:pointer;line-height:1;
+  #lb .lb-close{position:absolute;top:12px;right:14px;width:40px;height:40px;border-radius:50%;z-index:2;
+    background:rgba(0,0,0,.32);color:#fff;border:none;font-size:1.4rem;cursor:pointer;line-height:1;
     transition:transform .2s, background .2s}
-  #lb .lb-close:hover{transform:rotate(90deg);background:rgba(255,255,255,.32)}
+  #lb .lb-close:hover{transform:rotate(90deg);background:rgba(0,0,0,.5)}
 
   /* ===== capability ===== */
   .caps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -606,8 +608,8 @@
 
 <!-- LIGHTBOX -->
 <div id="lb" aria-hidden="true">
-  <button class="lb-close" aria-label="닫기">&times;</button>
   <div class="lb-card">
+    <button class="lb-close" aria-label="닫기">&times;</button>
     <img id="lbImg" alt="">
     <div id="lbPh"><span class="ph-name" id="lbPhName"></span><span class="ph-en" id="lbPhEn"></span></div>
     <div class="lb-body">
@@ -727,7 +729,19 @@
       var url=work.getAttribute('data-url');
       if(url){ visit.href=url; visit.style.display='inline-flex'; }
       else { visit.style.display='none'; }
+      // 오버레이는 문서 전체 높이로, 카드는 '클릭한 작업물' 바로 위치에 띄운다
+      var docH=Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      lb.style.height=docH+'px';
+      var sy=window.pageYOffset||document.documentElement.scrollTop||0;
+      var top=work.getBoundingClientRect().top + sy + 8;
       lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+      // 표시 후 카드 높이를 알 수 있으니, 화면 밖으로 안 나가게 보정
+      card.style.top=Math.max(12,top)+'px';
+      requestAnimationFrame(function(){
+        var ch=card.offsetHeight;
+        if(top+ch > docH-12) top=Math.max(12, docH-ch-12);
+        card.style.top=top+'px';
+      });
     }
     function close(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); }
     document.querySelectorAll('.work').forEach(function(w){
