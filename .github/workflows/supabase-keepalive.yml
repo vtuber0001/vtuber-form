@@ -1,0 +1,26 @@
+name: supabase-keepalive
+
+on:
+  schedule:
+    - cron: "0 0 */3 * *"   # every 3 days, 09:00 KST
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          URL="https://ekqpskyvaclofiqjnhxp.supabase.co"
+          KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrcXBza3l2YWNsb2ZpcWpuaHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1Nzg0NDAsImV4cCI6MjA5NzE1NDQ0MH0.s96oXnFmKFMAHhbS7-JpTu3e5tVZoFUQ_86x-tzOm6I"
+          code=$(curl -s -o /dev/null -w "%{http_code}" \
+            "$URL/rest/v1/submissions?select=id&limit=1" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY")
+          echo "HTTP $code"
+          [ "$code" -lt 500 ]
+
+      # GitHub disables scheduled workflows after 60 days without repo activity; this keeps it on.
+      - uses: gautamkrishnar/keepalive-workflow@v2
