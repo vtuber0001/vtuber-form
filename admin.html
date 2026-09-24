@@ -34,26 +34,25 @@
   details.raw summary{cursor:pointer;color:var(--muted);font-size:.78rem}
   details.raw pre{background:#faf8ff;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.72rem;overflow:auto;margin-top:6px;white-space:pre-wrap;word-break:break-all}
 
-  /* passcode gate */
-  .gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:50;padding:20px}
-  .gate .box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:34px 28px;max-width:340px;width:100%;text-align:center;box-shadow:0 14px 40px rgba(96,64,150,.12)}
-  .gate h2{font-family:'Jua',sans-serif;font-size:1.3rem;margin-bottom:6px}
-  .gate p{color:var(--muted);font-size:.85rem;margin-bottom:18px}
-  .gate input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:1rem;text-align:center;margin-bottom:10px;font-family:inherit}
-  .gate button{width:100%;border:none;background:linear-gradient(135deg,var(--primary),#b27cff);color:#fff;font-family:'Jua',sans-serif;font-size:1rem;border-radius:12px;padding:13px;cursor:pointer}
-  .gate .err{color:#f04e6b;font-size:.8rem;height:1em;margin-bottom:6px}
+  .vf-gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .vf-gate .box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:34px 28px;max-width:340px;width:100%;text-align:center;box-shadow:0 14px 40px rgba(96,64,150,.12)}
+  .vf-gate h2{font-family:'Jua',sans-serif;font-size:1.3rem;margin-bottom:6px}
+  .vf-gate p{color:var(--muted);font-size:.85rem;margin-bottom:18px}
+  .vf-gate input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:1rem;text-align:center;margin-bottom:10px;font-family:inherit}
+  .vf-gate button{width:100%;border:none;background:linear-gradient(135deg,var(--primary),#b27cff);color:#fff;font-family:'Jua',sans-serif;font-size:1rem;border-radius:12px;padding:13px;cursor:pointer}
+  .vf-gate .err{color:#f04e6b;font-size:.8rem;height:1em;margin-bottom:6px}
 </style>
 </head>
 <body>
 
-<!-- 비밀번호 잠금 -->
-<div class="gate" id="gate">
+<div class="vf-gate" id="vfGate">
   <div class="box">
-    <h2>🔒 관리자</h2>
-    <p>비밀번호를 입력해 주세요</p>
-    <input type="password" id="pw" placeholder="비밀번호" autocomplete="off">
+    <h2>관리자 로그인</h2>
+    <p>Supabase에 등록한 관리자 계정</p>
+    <input type="email" id="vfEmail" placeholder="이메일" autocomplete="username">
+    <input type="password" id="pw" placeholder="비밀번호" autocomplete="current-password">
     <div class="err" id="pwErr"></div>
-    <button id="pwBtn">들어가기</button>
+    <button id="pwBtn">로그인</button>
   </div>
 </div>
 
@@ -63,6 +62,7 @@
   <div class="tools">
     <input type="text" id="search" placeholder="활동명 검색...">
     <button id="refresh">새로고침</button>
+    <button id="logout">로그아웃</button>
   </div>
 </div>
 
@@ -72,41 +72,46 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-  /* =========================================================
-     ⬇️ index.html 과 똑같은 Supabase 값 두 개를 넣으세요
-        + 관리자 비밀번호를 원하는 걸로 바꾸세요
-  ========================================================= */
+  /* Must match the Supabase values in index.html. */
   const SUPABASE_URL  = "https://ekqpskyvaclofiqjnhxp.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrcXBza3l2YWNsb2ZpcWpuaHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1Nzg0NDAsImV4cCI6MjA5NzE1NDQ0MH0.s96oXnFmKFMAHhbS7-JpTu3e5tVZoFUQ_86x-tzOm6I";
-  const ADMIN_PW      = "1346";   // ← 원하는 비밀번호로 바꾸세요
 
   const $ = s => document.querySelector(s);
-  let db = null, allRows = [];
 
-  /* ----- 비밀번호 ----- */
-  function unlock(){
-    if($('#pw').value === ADMIN_PW){
-      $('#gate').style.display = 'none';
-      init();
-    } else {
-      $('#pwErr').textContent = '비밀번호가 틀렸어요';
-    }
-  }
-  $('#pwBtn').addEventListener('click', unlock);
-  $('#pw').addEventListener('keydown', e => { if(e.key==='Enter') unlock(); });
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-  /* ----- 데이터 ----- */
-  async function init(){
-    try{
-      db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-    }catch(e){ $('#list').innerHTML = '<div class="empty">Supabase 설정을 확인해 주세요.</div>'; return; }
-    await load();
+  function showApp(on){
+    $('#vfGate').style.setProperty('display', on ? 'none' : 'flex', 'important');
+    if(on) load();
   }
+
+  async function login(){
+    const email = $('#vfEmail').value.trim(), password = $('#pw').value;
+    if(!email || !password){ $('#pwErr').textContent = '이메일과 비밀번호를 입력하세요'; return; }
+    $('#pwBtn').disabled = true; $('#pwErr').textContent = '';
+    const { error } = await db.auth.signInWithPassword({ email, password });
+    $('#pwBtn').disabled = false;
+    if(error){ $('#pwErr').textContent = '이메일 또는 비밀번호가 맞지 않습니다'; return; }
+    $('#pw').value = '';
+    showApp(true);
+  }
+  $('#pwBtn').addEventListener('click', login);
+  $('#pw').addEventListener('keydown', e => { if(e.key==='Enter') login(); });
+  $('#vfEmail').addEventListener('keydown', e => { if(e.key==='Enter') $('#pw').focus(); });
+  $('#logout').addEventListener('click', async () => {
+    await db.auth.signOut();
+    allRows = []; $('#list').innerHTML = ''; $('#count').textContent = '0건';
+    showApp(false);
+  });
+
+  let allRows = [];
+  db.auth.getSession().then(({ data }) => showApp(!!(data && data.session)));
+
   async function load(){
     $('#list').innerHTML = '<div class="empty">불러오는 중…</div>';
     const { data, error } = await db.from('submissions').select('*').order('created_at',{ascending:false});
     if(error){
-      $('#list').innerHTML = '<div class="empty">읽기 권한이 없어요. (admin 읽기 SQL을 실행했는지 확인)</div>';
+      $('#list').innerHTML = '<div class="empty">읽기 권한 없음 — 로그인 상태와 보안 SQL 실행 여부 확인</div>';
       return;
     }
     allRows = data || [];
